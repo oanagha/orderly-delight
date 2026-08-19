@@ -83,6 +83,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
     setUser(null);
     setItems([]);
+    setOrders([]);
+
   }, []);
 
   const addItem = useCallback((product: Product) => {
