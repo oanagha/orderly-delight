@@ -107,7 +107,7 @@ function MenuPage() {
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
         <HeroSection />
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+        <div className="mt-8">
           <div
             ref={menuReveal.ref}
             data-visible={menuReveal.visible}
@@ -132,16 +132,8 @@ function MenuPage() {
 
             <ProductGrid products={filtered} resetKey={`${activeCategory}-${query}`} />
           </div>
-
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-              <OrderSummary
-                onPlaceOrder={handlePlaceOrder}
-                onExplore={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              />
-            </div>
-          </aside>
         </div>
+
       </main>
 
       <MobileOrderBar
