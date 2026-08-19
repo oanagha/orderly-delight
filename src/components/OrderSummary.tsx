@@ -43,7 +43,7 @@ export function OrderSummary({ onPlaceOrder, onExplore }: Props) {
   );
 
   return (
-    <div className="flex max-h-full flex-col">
+    <div className="flex h-full min-h-0 flex-col">
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3.5">
         <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
           My Order
