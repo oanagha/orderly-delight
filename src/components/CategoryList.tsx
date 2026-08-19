@@ -29,7 +29,7 @@ export function CategoryList({ active, onSelect }: Props) {
                 decoding="async"
                 alt=""
                 aria-hidden="true"
-                loading="lazy"
+                
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
               />
             </span>
