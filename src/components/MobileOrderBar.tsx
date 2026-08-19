@@ -41,7 +41,7 @@ export function MobileOrderBar({ open, onOpen, onClose, onPlaceOrder }: Props) {
             onClick={onClose}
             className="absolute inset-0 animate-in fade-in bg-foreground/40 backdrop-blur-[2px]"
           />
-          <div className="animate-sheet-up absolute inset-x-0 bottom-0 flex max-h-[85vh] flex-col overflow-hidden rounded-t-3xl bg-card shadow-panel">
+          <div className="animate-sheet-up absolute inset-x-0 bottom-0 mx-auto flex max-h-[85vh] w-full flex-col overflow-hidden rounded-t-3xl bg-card shadow-panel sm:max-w-lg">
             <div className="flex items-center justify-between px-4 pt-3">
               <span className="mx-auto h-1 w-10 rounded-full bg-border" aria-hidden="true" />
               <button
