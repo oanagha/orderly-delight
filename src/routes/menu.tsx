@@ -47,7 +47,7 @@ interface PlacedOrder {
 }
 
 function MenuPage() {
-  const { user, authReady, items, count, total, clearCart } = useApp();
+  const { user, authReady, items, count, total, clearCart, addOrder } = useApp();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<CategoryId>("all");
   const [query, setQuery] = useState("");
