@@ -14,7 +14,7 @@ export function MobileOrderBar({ open, onOpen, onClose, onPlaceOrder }: Props) {
   const { count, total } = useApp();
 
   return (
-    <div className="lg:hidden">
+    <div>
       {count > 0 && !open && (
         <div className="animate-fade-up fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md">
           <button
