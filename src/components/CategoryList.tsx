@@ -25,9 +25,11 @@ export function CategoryList({ active, onSelect }: Props) {
             <span className="h-9 w-9 overflow-hidden rounded-full bg-muted ring-2 ring-card">
               <img
                 src={category.image}
+                loading="eager"
+                decoding="async"
                 alt=""
                 aria-hidden="true"
-                loading="lazy"
+                
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
               />
             </span>

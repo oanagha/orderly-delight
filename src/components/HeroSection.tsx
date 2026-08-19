@@ -36,7 +36,7 @@ export function HeroSection() {
 
         <div className="relative min-h-52 md:min-h-0">
           <img
-            src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=60"
             alt="A table filled with freshly prepared dishes"
             className="h-full w-full object-cover"
           />

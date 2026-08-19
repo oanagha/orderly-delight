@@ -2,7 +2,7 @@ import { SearchX } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import type { Product } from "@/data/menu";
 
-export function ProductGrid({ products, resetKey }: { products: Product[]; resetKey: string }) {
+export function ProductGrid({ products }: { products: Product[]; resetKey?: string }) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-card px-6 py-14 text-center">
@@ -17,7 +17,6 @@ export function ProductGrid({ products, resetKey }: { products: Product[]; reset
 
   return (
     <div
-      key={resetKey}
       className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-3 xl:gap-5 2xl:grid-cols-4"
     >
       {products.map((product, index) => (
