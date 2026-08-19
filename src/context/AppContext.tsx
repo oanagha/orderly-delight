@@ -117,6 +117,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(() => setItems([]), []);
 
+  const addOrder = useCallback((order: OrderRecord) => {
+    setOrders((prev) => [order, ...prev]);
+  }, []);
+
   const value = useMemo<AppState>(() => {
     const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const tax = Math.round(subtotal * TAX_RATE);
@@ -131,12 +135,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
       decrement,
       removeItem,
       clearCart,
+      orders,
+      addOrder,
       count: items.reduce((sum, item) => sum + item.quantity, 0),
       subtotal,
       tax,
       total: subtotal + tax,
     };
-  }, [user, authReady, login, logout, items, addItem, increment, decrement, removeItem, clearCart]);
+  }, [
+    user,
+    authReady,
+    login,
+    logout,
+    items,
+    addItem,
+    increment,
+    decrement,
+    removeItem,
+    clearCart,
+    orders,
+    addOrder,
+  ]);
+
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
