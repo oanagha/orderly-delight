@@ -42,23 +42,24 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         </p>
         <div className="mt-4 flex items-center justify-between gap-3">
           <span className="text-lg font-bold text-accent">{formatPrice(product.price)}</span>
-          <button
-            type="button"
-            onClick={handleAdd}
-            aria-label={`Add ${product.name} to your order`}
-            className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
-              added
-                ? "bg-success text-success-foreground"
-                : "bg-accent-soft text-accent group-hover:bg-accent group-hover:text-accent-foreground hover:bg-accent hover:text-accent-foreground"
-            }`}
-          >
-            {added ? (
-              <Check className="h-4 w-4" aria-hidden="true" />
-            ) : (
+          {inCart > 0 ? (
+            <QuantityControl
+              quantity={inCart}
+              onIncrease={() => increment(product.id)}
+              onDecrease={() => decrement(product.id)}
+              label={product.name}
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={handleAdd}
+              aria-label={`Add ${product.name} to your order`}
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-3.5 py-2 text-[13px] font-semibold text-accent transition-all duration-200 hover:bg-accent hover:text-accent-foreground active:scale-95 group-hover:bg-accent group-hover:text-accent-foreground"
+            >
               <Plus className="h-4 w-4" aria-hidden="true" />
-            )}
-            {added ? "Added" : "Add"}
-          </button>
+              Add
+            </button>
+          )}
         </div>
       </div>
     </article>
