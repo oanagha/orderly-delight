@@ -4,7 +4,6 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { CategoryList } from "@/components/CategoryList";
 import { ProductGrid } from "@/components/ProductGrid";
-import { OrderSummary } from "@/components/OrderSummary";
 import { MobileOrderBar } from "@/components/MobileOrderBar";
 import { OrderConfirmationModal } from "@/components/OrderConfirmationModal";
 import { useApp } from "@/context/AppContext";
@@ -101,7 +100,7 @@ function MenuPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-24 lg:pb-0">
+    <div className="min-h-screen bg-background pb-24">
       <Navbar query={query} onQueryChange={setQuery} onOpenOrder={() => setSheetOpen(true)} />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
