@@ -1,18 +1,13 @@
-import { useState } from "react";
-import { Check, Plus, Star } from "lucide-react";
+import { Plus, Star } from "lucide-react";
 import { formatPrice, type Product } from "@/data/menu";
 import { useApp } from "@/context/AppContext";
+import { QuantityControl } from "@/components/QuantityControl";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
-  const { addItem, items } = useApp();
-  const [added, setAdded] = useState(false);
+  const { addItem, increment, decrement, items } = useApp();
   const inCart = items.find((item) => item.id === product.id)?.quantity ?? 0;
 
-  const handleAdd = () => {
-    addItem(product);
-    setAdded(true);
-    window.setTimeout(() => setAdded(false), 900);
-  };
+  const handleAdd = () => addItem(product);
 
   return (
     <article
