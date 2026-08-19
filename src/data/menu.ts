@@ -23,17 +23,17 @@ export interface Product {
   rating: number;
 }
 
-const img = (id: string, w = 800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+const img = (id: string, w = 440) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=60`;
 
 export const categories: Category[] = [
-  { id: "all", name: "All", image: img("photo-1504674900247-0877df9cc836", 300) },
-  { id: "burgers", name: "Burgers", image: img("photo-1568901346375-23c9450c58cd", 300) },
-  { id: "pizza", name: "Pizza", image: img("photo-1513104890138-7c749659a591", 300) },
-  { id: "pasta", name: "Pasta", image: img("photo-1621996346565-e3dbc646d9a9", 300) },
-  { id: "snacks", name: "Snacks", image: img("photo-1573080496219-bb080dd4f877", 300) },
-  { id: "desserts", name: "Desserts", image: img("photo-1578985545062-69928b1d9587", 300) },
-  { id: "drinks", name: "Drinks", image: img("photo-1544145945-f90425340c7e", 300) },
+  { id: "all", name: "All", image: img("photo-1504674900247-0877df9cc836", 120) },
+  { id: "burgers", name: "Burgers", image: img("photo-1568901346375-23c9450c58cd", 120) },
+  { id: "pizza", name: "Pizza", image: img("photo-1513104890138-7c749659a591", 120) },
+  { id: "pasta", name: "Pasta", image: img("photo-1621996346565-e3dbc646d9a9", 120) },
+  { id: "snacks", name: "Snacks", image: img("photo-1573080496219-bb080dd4f877", 120) },
+  { id: "desserts", name: "Desserts", image: img("photo-1578985545062-69928b1d9587", 120) },
+  { id: "drinks", name: "Drinks", image: img("photo-1544145945-f90425340c7e", 120) },
 ];
 
 export const products: Product[] = [

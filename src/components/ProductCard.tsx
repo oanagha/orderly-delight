@@ -12,13 +12,15 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
   return (
     <article
       className="animate-fade-up group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
-      style={{ animationDelay: `${Math.min(index, 8) * 45}ms` }}
+      style={{ animationDelay: `${Math.min(index, 5) * 25}ms` }}
     >
       <div className="relative aspect-4/3 overflow-hidden bg-muted">
         <img
           src={product.image}
           alt={product.name}
-          loading="lazy"
+          loading={index < 8 ? "eager" : "lazy"}
+          fetchPriority={index < 4 ? "high" : "auto"}
+          decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute left-3 top-3 rounded-full bg-card/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary backdrop-blur-sm">
