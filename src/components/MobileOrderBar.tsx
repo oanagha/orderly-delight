@@ -53,7 +53,7 @@ export function MobileOrderBar({ open, onOpen, onClose, onPlaceOrder }: Props) {
                 <X className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
-            <div className="flex min-h-0 flex-1 flex-col pb-[env(safe-area-inset-bottom)]">
+            <div className="flex min-h-0 flex-1 flex-col pt-8 pb-[env(safe-area-inset-bottom)]">
               <OrderSummary onPlaceOrder={onPlaceOrder} onExplore={onClose} />
             </div>
           </div>
