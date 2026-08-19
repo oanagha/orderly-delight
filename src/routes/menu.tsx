@@ -73,14 +73,26 @@ function MenuPage() {
 
   const handlePlaceOrder = () => {
     if (items.length === 0) return;
-    setPlaced({
+    const order = {
       number: `#SV${Math.floor(100000 + Math.random() * 899999)}`,
       items: count,
       total,
+    };
+    addOrder({
+      number: order.number,
+      placedAt: new Date().toLocaleString(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+      itemCount: count,
+      total,
+      items: items.map((item) => ({ id: item.id, name: item.name, quantity: item.quantity })),
     });
+    setPlaced(order);
     setSheetOpen(false);
     clearCart();
   };
+
 
   const activeName = categories.find((category) => category.id === activeCategory)?.name ?? "All";
 
