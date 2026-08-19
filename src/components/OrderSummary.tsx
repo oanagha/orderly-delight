@@ -1,3 +1,4 @@
+import { History } from "lucide-react";
 import { CartItemRow } from "@/components/CartItemRow";
 import { EmptyCart } from "@/components/EmptyCart";
 import { formatPrice, TAX_RATE } from "@/data/menu";
@@ -9,7 +10,37 @@ interface Props {
 }
 
 export function OrderSummary({ onPlaceOrder, onExplore }: Props) {
-  const { items, subtotal, tax, total, count } = useApp();
+  const { items, subtotal, tax, total, count, orders } = useApp();
+
+  const history = orders.length > 0 && (
+    <section className="border-t border-border px-4 py-4">
+      <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
+        <History className="h-3.5 w-3.5" aria-hidden="true" />
+        Order History
+      </h3>
+      <ul className="mt-3 space-y-2">
+        {orders.map((order) => (
+          <li
+            key={order.number}
+            className="rounded-xl border border-border bg-secondary/50 px-3 py-2.5"
+          >
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="text-sm font-semibold text-foreground">{order.number}</span>
+              <span className="text-sm font-bold tabular-nums text-accent">
+                {formatPrice(order.total)}
+              </span>
+            </div>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {order.placedAt} · {order.itemCount} {order.itemCount === 1 ? "item" : "items"}
+            </p>
+            <p className="mt-1 truncate text-xs text-muted-foreground">
+              {order.items.map((item) => `${item.quantity}× ${item.name}`).join(", ")}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 
   return (
     <div className="flex max-h-full flex-col">
@@ -25,14 +56,21 @@ export function OrderSummary({ onPlaceOrder, onExplore }: Props) {
       </div>
 
       {items.length === 0 ? (
-        <EmptyCart onExplore={onExplore} />
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <EmptyCart onExplore={onExplore} />
+          {history}
+        </div>
       ) : (
         <>
-          <ul className="flex-1 divide-y divide-border overflow-y-auto px-4">
-            {items.map((item) => (
-              <CartItemRow key={item.id} item={item} />
-            ))}
-          </ul>
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <ul className="divide-y divide-border px-4">
+              {items.map((item) => (
+                <CartItemRow key={item.id} item={item} />
+              ))}
+            </ul>
+            {history}
+          </div>
+
 
           <div className="border-t border-border px-4 py-4">
             <dl className="space-y-1.5 text-sm">
