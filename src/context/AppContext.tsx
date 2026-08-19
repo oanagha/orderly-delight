@@ -17,6 +17,14 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
+export interface OrderRecord {
+  number: string;
+  placedAt: string;
+  itemCount: number;
+  total: number;
+  items: { id: string; name: string; quantity: number }[];
+}
+
 interface AppState {
   user: string | null;
   authReady: boolean;
@@ -28,6 +36,8 @@ interface AppState {
   decrement: (id: string) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
+  orders: OrderRecord[];
+  addOrder: (order: OrderRecord) => void;
   count: number;
   subtotal: number;
   tax: number;
@@ -40,6 +50,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [items, setItems] = useState<CartItem[]>([]);
+  const [orders, setOrders] = useState<OrderRecord[]>([]);
+
 
   useEffect(() => {
     try {
@@ -71,6 +83,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
     setUser(null);
     setItems([]);
+    setOrders([]);
+
   }, []);
 
   const addItem = useCallback((product: Product) => {
@@ -105,6 +119,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const clearCart = useCallback(() => setItems([]), []);
 
+  const addOrder = useCallback((order: OrderRecord) => {
+    setOrders((prev) => [order, ...prev]);
+  }, []);
+
   const value = useMemo<AppState>(() => {
     const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const tax = Math.round(subtotal * TAX_RATE);
@@ -119,12 +137,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
       decrement,
       removeItem,
       clearCart,
+      orders,
+      addOrder,
       count: items.reduce((sum, item) => sum + item.quantity, 0),
       subtotal,
       tax,
       total: subtotal + tax,
     };
-  }, [user, authReady, login, logout, items, addItem, increment, decrement, removeItem, clearCart]);
+  }, [
+    user,
+    authReady,
+    login,
+    logout,
+    items,
+    addItem,
+    increment,
+    decrement,
+    removeItem,
+    clearCart,
+    orders,
+    addOrder,
+  ]);
+
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

@@ -4,7 +4,6 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { CategoryList } from "@/components/CategoryList";
 import { ProductGrid } from "@/components/ProductGrid";
-import { OrderSummary } from "@/components/OrderSummary";
 import { MobileOrderBar } from "@/components/MobileOrderBar";
 import { OrderConfirmationModal } from "@/components/OrderConfirmationModal";
 import { useApp } from "@/context/AppContext";
@@ -47,7 +46,7 @@ interface PlacedOrder {
 }
 
 function MenuPage() {
-  const { user, authReady, items, count, total, clearCart } = useApp();
+  const { user, authReady, items, count, total, clearCart, addOrder } = useApp();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<CategoryId>("all");
   const [query, setQuery] = useState("");
@@ -73,14 +72,26 @@ function MenuPage() {
 
   const handlePlaceOrder = () => {
     if (items.length === 0) return;
-    setPlaced({
+    const order = {
       number: `#SV${Math.floor(100000 + Math.random() * 899999)}`,
       items: count,
       total,
+    };
+    addOrder({
+      number: order.number,
+      placedAt: new Date().toLocaleString(undefined, {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+      itemCount: count,
+      total,
+      items: items.map((item) => ({ id: item.id, name: item.name, quantity: item.quantity })),
     });
+    setPlaced(order);
     setSheetOpen(false);
     clearCart();
   };
+
 
   const activeName = categories.find((category) => category.id === activeCategory)?.name ?? "All";
 
@@ -89,13 +100,13 @@ function MenuPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-24 lg:pb-0">
+    <div className="min-h-screen bg-background pb-24">
       <Navbar query={query} onQueryChange={setQuery} onOpenOrder={() => setSheetOpen(true)} />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
         <HeroSection />
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+        <div className="mt-8">
           <div
             ref={menuReveal.ref}
             data-visible={menuReveal.visible}
@@ -120,16 +131,8 @@ function MenuPage() {
 
             <ProductGrid products={filtered} resetKey={`${activeCategory}-${query}`} />
           </div>
-
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-hidden rounded-2xl border border-border bg-card shadow-card">
-              <OrderSummary
-                onPlaceOrder={handlePlaceOrder}
-                onExplore={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              />
-            </div>
-          </aside>
         </div>
+
       </main>
 
       <MobileOrderBar
