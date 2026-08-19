@@ -17,6 +17,14 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
+export interface OrderRecord {
+  number: string;
+  placedAt: string;
+  itemCount: number;
+  total: number;
+  items: { id: string; name: string; quantity: number }[];
+}
+
 interface AppState {
   user: string | null;
   authReady: boolean;
@@ -28,6 +36,8 @@ interface AppState {
   decrement: (id: string) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
+  orders: OrderRecord[];
+  addOrder: (order: OrderRecord) => void;
   count: number;
   subtotal: number;
   tax: number;
@@ -40,6 +50,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [items, setItems] = useState<CartItem[]>([]);
+  const [orders, setOrders] = useState<OrderRecord[]>([]);
+
 
   useEffect(() => {
     try {
